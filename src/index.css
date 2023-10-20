@@ -13,6 +13,14 @@ html {
 
 .check{
 background: linear-gradient(0.40turn, hsl(192, 100%, 67%), hsl(280, 87%, 65%))
+}
 
 
+.specialShadow {
+    /* box-shadow: inset 10px 0 1px -10px rgba(0, 0, 0, 0.5), inset -10px 0 1px -10px rgba(0, 0, 0, 0.5); */
+
+    box-shadow: inset 10px 0 1px -10px rgba(0, 0, 0, 0.9),
+              inset -10px 0 1px -10px rgba(0, 0, 0, 0.9),
+              inset 0 9px 1px -10px rgba(0, 0, 0, 0.9),
+              inset 0 -10px 1px -10px rgba(0, 0, 0, 0.9);
 }
