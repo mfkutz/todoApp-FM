@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { bgDesktopLight, iconMoon, iconCheck, iconCross } from './images/index'
 
 const App = () => {
@@ -23,6 +23,18 @@ const App = () => {
     updatedTasks[index].completed = !updatedTasks[index].completed // Cambia el estado de completado de la tarea
     setTasks(updatedTasks) // Actualiza el estado
   }
+
+  useEffect(() => {
+    const storedTasks = localStorage.getItem('tasks')
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks))
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks])
+
   return (
     <div className="relative">
       <img src={bgDesktopLight} alt="" className="w-full" />
