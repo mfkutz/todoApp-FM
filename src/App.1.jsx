@@ -1,23 +1,18 @@
 import { useState, useEffect } from 'react'
 import {
   bgDesktopLight,
-  bgDesktopDark,
   iconMoon,
   iconSun,
   iconCheck,
   iconCross
 } from './images/index'
 
-const App = () => {
+export const App = () => {
   const [tasks, setTasks] = useState([])
   const [data, setData] = useState('')
   const [remaining, setRemaining] = useState(0)
   const [view, setView] = useState('All')
-
-  const [theme, setTheme] = useState(() => {
-    const storedTheme = localStorage.getItem('darkMode')
-    return storedTheme || 'light'
-  })
+  const [theme, setTheme] = useState('light')
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -30,10 +25,6 @@ const App = () => {
   const handleThemeSwitch = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark')
   }
-
-  useEffect(() => {
-    localStorage.setItem('darkMode', theme)
-  }, [theme])
 
   const capitalizeFirstLetter = (input) => {
     return input.charAt(0).toUpperCase() + input.slice(1)
@@ -75,18 +66,12 @@ const App = () => {
   useEffect(() => {
     const storedTasks = localStorage.getItem('tasks')
     const storedRemaining = localStorage.getItem('remaining')
-    /* const storedTheme = localStorage.getItem('darkMode') */
     if (storedTasks) {
       setTasks(JSON.parse(storedTasks))
     }
     if (storedRemaining) {
       setRemaining(JSON.parse(storedRemaining))
     }
-    /*  if (storedTheme !== null && storedTheme !== '') {
-      setTheme(storedTheme)
-    } else {
-      setTheme('light')
-    } */
   }, [])
 
   useEffect(() => {
@@ -113,16 +98,13 @@ const App = () => {
 
   return (
     <div className="relative min-h-screen dark:bg-[#161722]">
-      {theme === 'light' ? (
-        <img src={bgDesktopLight} alt="" className="w-full background " />
-      ) : (
-        <img src={bgDesktopDark} alt="" className="w-full background " />
-      )}
+      <img src={bgDesktopLight} alt="" className="w-full background " />
       <div className="wrapper m-2 absolute inset-y-0 inset-x-0 mx-auto ">
         <div className="flex items-center justify-between pt-[1.3rem] sm:pt-[2rem] lg:pt-[3.4rem] pb-[1.5rem]  sm:pb-[1.7rem] lg:pb-[1.85rem]">
           <h1 className="lg:text-[2.5rem] text-[1.5rem] font-bold tracking-[0.9rem] text-white pt-2">
             TODO
           </h1>
+
           {theme === 'light' ? (
             <img
               src={iconMoon}
@@ -267,5 +249,3 @@ const App = () => {
     </div>
   )
 }
-
-export default App
