@@ -24,3 +24,7 @@ background: linear-gradient(0.40turn, hsl(192, 100%, 67%), hsl(280, 87%, 65%))
               inset 0 9px 1px -10px rgba(0, 0, 0, 0.9),
               inset 0 -10px 1px -10px rgba(0, 0, 0, 0.9);
 }
+
+input[type]:focus{
+    outline: solid 3px rgb(0, 38, 255);
+}

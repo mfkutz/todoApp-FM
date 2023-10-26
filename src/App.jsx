@@ -4,16 +4,29 @@ import { bgDesktopLight, iconMoon, iconCheck, iconCross } from './images/index'
 const App = () => {
   const [tasks, setTasks] = useState([])
   const [data, setData] = useState('')
+  const [remaining, setRemaining] = useState(0)
+  const [view, setView] = useState('All')
+
+  const capitalizeFirstLetter = (input) => {
+    return input.charAt(0).toUpperCase() + input.slice(1)
+  }
 
   const handleAdd = () => {
     if (data.trim() !== '') {
-      setTasks([...tasks, { text: data, completed: false }])
+      const capitalizedData = capitalizeFirstLetter(data)
+      setTasks([...tasks, { text: capitalizedData, completed: false }])
       setData('')
+      setRemaining(remaining + 1)
     }
   }
 
   const handleDelete = (index) => {
     const updated = [...tasks]
+    if (updated[index].completed) {
+      setRemaining(remaining + 0)
+    } else {
+      setRemaining(remaining - 1)
+    }
     updated.splice(index, 1)
     setTasks(updated)
   }
@@ -21,19 +34,48 @@ const App = () => {
   const handleChecked = (index) => {
     const updatedTasks = [...tasks] // Clona el array de tareas
     updatedTasks[index].completed = !updatedTasks[index].completed // Cambia el estado de completado de la tarea
-    setTasks(updatedTasks) // Actualiza el estado
+    if (updatedTasks[index].completed) {
+      console.log('it is true')
+      setRemaining(remaining - 1)
+    } else {
+      setRemaining(remaining + 1)
+      console.log('it is false')
+    }
+    setTasks(updatedTasks)
   }
 
   useEffect(() => {
     const storedTasks = localStorage.getItem('tasks')
+    const storedRemaining = localStorage.getItem('remaining')
     if (storedTasks) {
       setTasks(JSON.parse(storedTasks))
+    }
+    if (storedRemaining) {
+      setRemaining(JSON.parse(storedRemaining))
     }
   }, [])
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks))
+    localStorage.setItem('remaining', JSON.stringify(remaining))
   }, [tasks])
+
+  const handleClear = () => {
+    const updatedTasks = tasks.filter((task) => !task.completed)
+    setTasks(updatedTasks)
+  }
+
+  const handleAll = () => {
+    setView('All')
+  }
+
+  const handleActive = () => {
+    setView('Active')
+  }
+
+  const handleCompleted = () => {
+    setView('Completed')
+  }
 
   return (
     <div className="relative">
@@ -72,7 +114,10 @@ const App = () => {
             tasks.map((task, index) => (
               <li
                 key={index}
-                className=" flex justify-between items-center px-[1.5rem] py-[1rem]  border-gray-200 bg-transparent specialShadow"
+                className={`flex justify-between items-center px-[1.5rem] py-[1rem]  border-gray-200 bg-transparent specialShadow 
+                ${view === 'Active' && task.completed ? 'hidden' : ''}
+                ${view === 'Completed' && !task.completed ? 'hidden' : ''}
+              `}
               >
                 <div className="flex gap-5">
                   <div
@@ -105,13 +150,36 @@ const App = () => {
             ))}
         </ul>
         <footer className="flex bg-white border-b border-l border-r rounded-b-[5px] justify-between px-6 py-[0.9rem] text-[14px] text-[#C8C5C4] shadow-2xl">
-          <div>5 items left</div>
+          <div>{remaining} items left</div>
           <div className="flex gap-4">
-            <button className="hover:text-black">All</button>
-            <button className="hover:text-black">Active</button>
-            <button className="hover:text-black">Completed</button>
+            <button
+              className={`hover:text-black ${
+                view === 'All' ? 'text-black' : ''
+              }`}
+              onClick={handleAll}
+            >
+              All
+            </button>
+            <button
+              className={`hover:text-black ${
+                view === 'Active' ? 'text-black' : ''
+              }`}
+              onClick={handleActive}
+            >
+              Active
+            </button>
+            <button
+              className={`hover:text-black ${
+                view === 'Completed' ? 'text-black' : ''
+              }`}
+              onClick={handleCompleted}
+            >
+              Completed
+            </button>
           </div>
-          <button className="hover:text-black ">Clear Completed</button>
+          <button className="hover:text-black " onClick={handleClear}>
+            Clear Completed
+          </button>
         </footer>
       </div>
     </div>
