@@ -79,16 +79,16 @@ const App = () => {
 
   return (
     <div className="relative">
-      <img src={bgDesktopLight} alt="" className="w-full" />
-      <div className="wrapper m-2 absolute inset-y-0 inset-x-0 mx-auto">
-        <div className="flex items-center justify-between pt-[3.4rem] pb-[1.85rem]">
-          <h1 className="text-[2.5rem] font-bold tracking-[0.9rem] text-white pt-2">
+      <img src={bgDesktopLight} alt="" className="w-full background " />
+      <div className="wrapper m-2 absolute inset-y-0 inset-x-0 mx-auto ">
+        <div className="flex items-center justify-between pt-[1.3rem] sm:pt-[2rem] lg:pt-[3.4rem] pb-[1.5rem]  sm:pb-[1.7rem] lg:pb-[1.85rem]">
+          <h1 className="lg:text-[2.5rem] text-[1.5rem] font-bold tracking-[0.9rem] text-white pt-2">
             TODO
           </h1>
-          <img src={iconMoon} alt="" className="" />
+          <img src={iconMoon} alt="" className="w-[20px] lg:w-[25px]" />
         </div>
         <div className="relative">
-          <div className="absolute rounded-full flex w-[1.5rem] h-[1.5rem] items-center justify-center border border-gray-200 top-5 left-6">
+          <div className="absolute rounded-full flex w-[1.2rem] h-[1.2rem] lg:w-[1.5rem] lg:h-[1.5rem] items-center justify-center border border-gray-200 top-[0.9rem] left-[1.2rem] lg:top-5 lg:left-6">
             <img
               src={iconCheck}
               alt=""
@@ -98,7 +98,8 @@ const App = () => {
 
           <input
             type="text"
-            className="w-full p-3 bg-white px-[1.5rem] pl-[4.4rem] py-[1.2rem] rounded-[5px] text-[18px] mb-[1.5rem] shadow-sm "
+            placeholder="Create a new todo..."
+            className="w-full p-3 bg-white px-[1.5rem] pl-[3.5rem] lg:pl-[4.4rem] py-[1rem] lg:py-[1.2rem] rounded-[5px] text-[12px] lg:text-[18px] mb-[1.5rem] shadow-sm "
             value={data}
             onChange={(e) => setData(e.target.value)}
             onKeyUp={(e) => {
@@ -114,14 +115,14 @@ const App = () => {
             tasks.map((task, index) => (
               <li
                 key={index}
-                className={`flex justify-between items-center px-[1.5rem] py-[1rem]  border-gray-200 bg-transparent specialShadow 
+                className={`flex justify-between items-center px-[1.2rem] lg:px-[1.5rem] py-[0.8rem] lg:py-[1rem]  border-gray-200 bg-transparent specialShadow 
                 ${view === 'Active' && task.completed ? 'hidden' : ''}
                 ${view === 'Completed' && !task.completed ? 'hidden' : ''}
               `}
               >
                 <div className="flex gap-5">
                   <div
-                    className={`rounded-full flex w-[1.6rem] h-[1.6rem] items-center justify-center border border-gray-200 cursor-pointer | ${
+                    className={`rounded-full flex w-[1.2rem] h-[1.2rem] lg:w-[1.6rem] lg:h-[1.6rem] items-center justify-center border border-gray-200 cursor-pointer | ${
                       task.completed ? 'check' : ''
                     } `}
                     onClick={() => handleChecked(index)}
@@ -133,7 +134,7 @@ const App = () => {
                     />
                   </div>
                   <p
-                    className={`text-[18px] | ${
+                    className={`text-[14px] lg:text-[18px] | ${
                       task.completed ? 'text-gray-300 line-through' : ''
                     } `}
                   >
@@ -144,33 +145,33 @@ const App = () => {
                   src={iconCross}
                   alt=""
                   onClick={() => handleDelete(index)}
-                  className="cursor-pointer"
+                  className="cursor-pointer w-[13px] lg:w-[17px]"
                 />
               </li>
             ))}
         </ul>
         <footer className="flex bg-white border-b border-l border-r rounded-b-[5px] justify-between px-6 py-[0.9rem] text-[14px] text-[#C8C5C4] shadow-2xl">
           <div>{remaining} items left</div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 footer">
             <button
-              className={`hover:text-black ${
-                view === 'All' ? 'text-black' : ''
+              className={`hover:text-black font-bold ${
+                view === 'All' ? 'text-black ' : ''
               }`}
               onClick={handleAll}
             >
               All
             </button>
             <button
-              className={`hover:text-black ${
-                view === 'Active' ? 'text-black' : ''
+              className={`hover:text-black font-bold ${
+                view === 'Active' ? 'text-black ' : ''
               }`}
               onClick={handleActive}
             >
               Active
             </button>
             <button
-              className={`hover:text-black ${
-                view === 'Completed' ? 'text-black' : ''
+              className={`hover:text-black font-bold ${
+                view === 'Completed' ? 'text-black ' : ''
               }`}
               onClick={handleCompleted}
             >
@@ -181,6 +182,35 @@ const App = () => {
             Clear Completed
           </button>
         </footer>
+
+        <div className="flex footerTwo bg-white border rounded-[5px] justify-between px-6 py-[0.9rem] text-[14px] text-[#C8C5C4] shadow-xl  mt-4">
+          <div className="flex gap-4 justify-center ">
+            <button
+              className={`hover:text-black font-bold ${
+                view === 'All' ? 'text-black ' : ''
+              }`}
+              onClick={handleAll}
+            >
+              All
+            </button>
+            <button
+              className={`hover:text-black font-bold ${
+                view === 'Active' ? 'text-black ' : ''
+              }`}
+              onClick={handleActive}
+            >
+              Active
+            </button>
+            <button
+              className={`hover:text-black font-bold ${
+                view === 'Completed' ? 'text-black ' : ''
+              }`}
+              onClick={handleCompleted}
+            >
+              Completed
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )
