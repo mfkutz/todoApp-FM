@@ -171,7 +171,9 @@ const App = () => {
                     <img
                       src={iconCheck}
                       alt=""
-                      className="w-[0.6rem] h-[0.6rem] flex"
+                      className={`w-[0.6rem] h-[0.6rem] flex ${
+                        task.completed ? '' : 'hidden'
+                      }`}
                     />
                   </div>
                   <p
