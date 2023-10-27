@@ -60,8 +60,8 @@ const App = () => {
   }
 
   const handleChecked = (index) => {
-    const updatedTasks = [...tasks] // Clona el array de tareas
-    updatedTasks[index].completed = !updatedTasks[index].completed // Cambia el estado de completado de la tarea
+    const updatedTasks = [...tasks]
+    updatedTasks[index].completed = !updatedTasks[index].completed
     if (updatedTasks[index].completed) {
       console.log('it is true')
       setRemaining(remaining - 1)
@@ -75,18 +75,12 @@ const App = () => {
   useEffect(() => {
     const storedTasks = localStorage.getItem('tasks')
     const storedRemaining = localStorage.getItem('remaining')
-    /* const storedTheme = localStorage.getItem('darkMode') */
     if (storedTasks) {
       setTasks(JSON.parse(storedTasks))
     }
     if (storedRemaining) {
       setRemaining(JSON.parse(storedRemaining))
     }
-    /*  if (storedTheme !== null && storedTheme !== '') {
-      setTheme(storedTheme)
-    } else {
-      setTheme('light')
-    } */
   }, [])
 
   useEffect(() => {
@@ -199,7 +193,7 @@ const App = () => {
               </li>
             ))}
         </ul>
-        <footer className="flex dark:bg-[#25273c] bg-white border-b border-l border-r dark:border-none border-gray-400   rounded-b-[5px] justify-between px-6 py-[0.9rem] text-[14px] text-[#C8C5C4] shadow-2xl">
+        <footer className="flex dark:bg-[#25273c] bg-white border-b border-l border-r dark:border-none border-gray-200   rounded-b-[5px] justify-between px-6 py-[0.9rem] text-[14px] text-[#C8C5C4] shadow-2xl">
           <div>{remaining} items left</div>
           <div className="flex gap-4 footer">
             <button
@@ -235,27 +229,27 @@ const App = () => {
           </button>
         </footer>
 
-        <div className="flex footerTwo bg-white border rounded-[5px] justify-between px-6 py-[0.9rem] text-[14px] text-[#C8C5C4] shadow-xl  mt-4">
+        <div className="flex footerTwo bg-white dark:bg-[#25273c] dark:border-none border rounded-[5px] justify-between px-6 py-[0.9rem] text-[14px] text-[#C8C5C4] shadow-xl  mt-4">
           <div className="flex gap-4 justify-center ">
             <button
-              className={`hover:text-black font-bold ${
-                view === 'All' ? 'text-black ' : ''
+              className={`hover:text-black dark:hover:text-blue-400 font-bold ${
+                view === 'All' ? 'text-black dark:text-blue-400 ' : ''
               }`}
               onClick={handleAll}
             >
               All
             </button>
             <button
-              className={`hover:text-black font-bold ${
-                view === 'Active' ? 'text-black ' : ''
+              className={`hover:text-black dark:hover:text-blue-400 font-bold ${
+                view === 'Active' ? 'text-black dark:text-blue-400 ' : ''
               }`}
               onClick={handleActive}
             >
               Active
             </button>
             <button
-              className={`hover:text-black font-bold ${
-                view === 'Completed' ? 'text-black ' : ''
+              className={`hover:text-black dark:hover:text-blue-400 font-bold ${
+                view === 'Completed' ? 'text-black dark:text-blue-400 ' : ''
               }`}
               onClick={handleCompleted}
             >
