@@ -13,7 +13,6 @@ const App = () => {
   const [data, setData] = useState('')
   const [remaining, setRemaining] = useState(0)
   const [view, setView] = useState('All')
-
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem('darkMode')
     return storedTheme || 'light'
@@ -42,7 +41,7 @@ const App = () => {
   const handleAdd = () => {
     if (data.trim() !== '') {
       const capitalizedData = capitalizeFirstLetter(data)
-      setTasks([...tasks, { text: capitalizedData, completed: false }])
+      setTasks([{ text: capitalizedData, completed: false }, ...tasks])
       setData('')
       setRemaining(remaining + 1)
     }
@@ -106,7 +105,7 @@ const App = () => {
   }
 
   return (
-    <div className="relative min-h-screen dark:bg-[#161722]">
+    <div className="relative min-h-screen dark:bg-[#161722] transition duration-500">
       {theme === 'light' ? (
         <img src={bgDesktopLight} alt="" className="w-full background " />
       ) : (
@@ -121,14 +120,14 @@ const App = () => {
             <img
               src={iconMoon}
               alt=""
-              className="w-[20px] lg:w-[25px]"
+              className="w-[20px] lg:w-[25px] "
               onClick={handleThemeSwitch}
             />
           ) : (
             <img
               src={iconSun}
               alt=""
-              className="w-[20px] lg:w-[25px]"
+              className="w-[20px] lg:w-[25px] "
               onClick={handleThemeSwitch}
             />
           )}
@@ -139,7 +138,7 @@ const App = () => {
           <input
             type="text"
             placeholder="Create a new todo..."
-            className=" w-full p-3 bg-white dark:text-[#cacde8] dark:bg-[#25273c] px-[1.5rem] pl-[3.5rem] lg:pl-[4.4rem] py-[1rem] lg:py-[1.2rem] rounded-[5px] text-[12px] lg:text-[18px] mb-[1.5rem] shadow-sm "
+            className=" w-full p-3 bg-white dark:text-[#cacde8] dark:bg-[#25273c]  px-[1.5rem] pl-[3.5rem] lg:pl-[4.4rem] py-[1rem] lg:py-[1.2rem] rounded-[5px] text-[12px] lg:text-[18px] mb-[1.5rem] shadow-sm "
             value={data}
             onChange={(e) => setData(e.target.value)}
             onKeyUp={(e) => {
@@ -150,12 +149,12 @@ const App = () => {
           />
         </div>
 
-        <ul className=" rounded-[5px] bg-white dark:bg-[#25273c]">
+        <ul className=" rounded-[5px] bg-white dark:bg-[#25273c] ">
           {tasks &&
             tasks.map((task, index) => (
               <li
                 key={index}
-                className={`dark:text-[#cacde8] flex justify-between items-center px-[1.2rem] lg:px-[1.5rem] py-[0.8rem] lg:py-[1rem] bg-transparent 
+                className={`dark:text-[#cacde8] flex justify-between items-center px-[1.2rem] lg:px-[1.5rem] py-[0.8rem] lg:py-[1rem] bg-transparent
                 ${theme === 'light' ? 'specialShadow' : 'specialShadowTwo'}
                 ${view === 'Active' && task.completed ? 'hidden' : ''}
                 ${view === 'Completed' && !task.completed ? 'hidden' : ''}
@@ -195,7 +194,7 @@ const App = () => {
               </li>
             ))}
         </ul>
-        <footer className="flex dark:bg-[#25273c] bg-white border-b border-l border-r dark:border-none border-gray-200   rounded-b-[5px] justify-between px-6 py-[0.9rem] text-[14px] text-[#C8C5C4] shadow-2xl">
+        <footer className="flex dark:bg-[#25273c]  bg-white border-b border-l border-r dark:border-none border-gray-200   rounded-b-[5px] justify-between px-6 py-[0.9rem] text-[14px] text-[#C8C5C4] shadow-2xl">
           <div>{remaining} items left</div>
           <div className="flex gap-4 footer">
             <button
