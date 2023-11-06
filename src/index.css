@@ -58,6 +58,9 @@ input::placeholder{
 .footerTwo{
     display: none;
 }
+.dark{
+    background: var(--Very-Dark-Blue);
+}
 
 @media (max-width:568px ){
     .wrapper {
